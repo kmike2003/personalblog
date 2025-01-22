@@ -5,11 +5,11 @@ const Media = require("./models/Media");
 
 const initDB = async() => {
     try {
-        await sequelize.authenticate();
+        await sequelize.sequelize.authenticate();
         console.log("Database connected!");
 
         // Синхронизация моделей с базой данных
-        await sequelize.sync({ alter: true });
+        await sequelize.sequelize.sync({ alter: true });
         console.log("Tables created!");
     } catch (error) {
         console.error("Database connection failed:", error);

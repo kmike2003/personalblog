@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 const dotenv = require("dotenv");
 const User = require("./User");
 const Post = require("./Post");
-
+const Comment = require("./Comment");
 dotenv.config();
 
 const sequelize = new Sequelize(
@@ -19,13 +19,21 @@ const sequelize = new Sequelize(
 // Инициализация моделей
 User.initModel(sequelize);
 Post.initModel(sequelize);
+Comment.initModel(sequelize);
 
 // Установка связей между моделями
 User.hasMany(Post, { foreignKey: "userId" });
 Post.belongsTo(User, { foreignKey: "userId" });
 
+Post.hasMany(Comment, { foreignKey: "postId" });
+Comment.belongsTo(Post, { foreignKey: "postId" });
+
+User.hasMany(Comment, { foreignKey: "userId" });
+Comment.belongsTo(User, { foreignKey: "userId" });
+
 module.exports = {
     sequelize,
     User,
     Post,
-};
+    Comment
+}
