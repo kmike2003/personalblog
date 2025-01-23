@@ -7,6 +7,7 @@ const PostsPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        navigate("/users")
         const fetchPosts = async () => {
             try {
                 const response = await axios.get("/posts");

@@ -33,8 +33,6 @@ const RegisterPage = () => {
         addLog("Отправляем данные: " + JSON.stringify(formData));
     
         try {
-            console.log(axios)
-            console.log(axios.getUri())
             const response = await axios.post("/users/register", formData);
             addLog("Ответ от сервера: " + JSON.stringify(response.data));
             setMessage("Registration successful!");

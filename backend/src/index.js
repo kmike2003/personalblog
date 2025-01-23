@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/comments", commentRoutes);
+app.use("/api/comments", commentRoutes);
 app.options('*', cors(corsOptions));
 app.use(express.json());
 

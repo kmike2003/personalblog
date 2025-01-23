@@ -28,8 +28,11 @@ Post.belongsTo(User, { foreignKey: "userId" });
 Post.hasMany(Comment, { foreignKey: "postId" });
 Comment.belongsTo(Post, { foreignKey: "postId" });
 
-User.hasMany(Comment, { foreignKey: "userId" });
-Comment.belongsTo(User, { foreignKey: "userId" });
+// Убираем дублирование ассоциаций с User
+// Используем уникальные алиасы
+User.hasMany(Comment, { foreignKey: "userId", as: "AuthoredComments" }); // Комментарии пользователя
+Comment.belongsTo(User, { foreignKey: "userId", as: "Author" }); // Автор комментария
+
 
 module.exports = {
     sequelize,

@@ -17,8 +17,9 @@ const LoginPage = () => {
         e.preventDefault();
         try {
             const response = await axios.post("/users/login", formData);
-            const { token, userId } = response.data; // Получаем токен и userId из ответа
+            const { token, userId, user } = response.data; // Получаем токен и userId из ответа
             localStorage.setItem("token", token); // Сохраняем токен
+            localStorage.setItem("user", user);
             localStorage.setItem("userId", userId); // Сохраняем userId
             setMessage("Login successful!");
             navigate("/profile"); // Перенаправляем на страницу профиля

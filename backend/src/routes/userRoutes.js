@@ -47,8 +47,9 @@ router.post("/login", async (req, res) => {
         );
         res.json({
             message: "Login successful!",
-            token,
-            userId: user.id, // Возвращаем идентификатор пользователя
+            token: token,
+            userId: user.id,
+            user: username
         });
     } catch (err) {
         console.error("Login error:", err);
@@ -56,23 +57,17 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/", async(req, res) => {
+router.get("/users", async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            attributes: ["id", "username"], // Возвращаем только нужные данные
+        });
         res.json(users);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch users." });
     }
 });
 
-router.post("/", async(req, res) => {
-    const { username, email, password } = req.body;
-    try {
-        const user = await User.create({ username, email, password });
-        res.status(201).json(user);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
 
 module.exports = router;
